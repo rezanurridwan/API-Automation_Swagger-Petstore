@@ -1,88 +1,77 @@
-import requests, urllib3
-import json
-from datetime import datetime
+def test_user_crud_sequential(api_client, user_data):
 
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    create_user = user_data["create"]
+    update_user = user_data["update"]
 
-class users:
-    def __init__(self, base_url):
-        self.base_url = base_url
-        self.session = requests.Session()
-        self.session.verify = False
-    
-    def test_post_request(self, endpoint, headers, data):
-        """Test POST request"""
-        url = f"{self.base_url}{endpoint}"
-        headers = headers
-        
-        try:
-            response = self.session.post(url, headers=headers, json=data)
-            return response
-        except Exception as e:
-            print(f"Error: {str(e)}")
-            return None
-        
-    def test_get_request(self, endpoint, headers):
-        """Test GET request"""
-        url = f"{self.base_url}{endpoint}"
-        headers = headers
-        
-        try:
-            response = self.session.get(url, headers=headers)
-            return response
-        except Exception as e:
-            print(f"Error: {str(e)}")
-            return None
-    
-    def validate_status_code(self, response, expected_code):
-        """Validasi status code"""
-        if response and response.status_code == expected_code:
-            print(f"Status code valid: {expected_code}")
-            return True
-        else:
-            print(f"Status code tidak sesuai. Expected: {expected_code}, Got: {response.status_code if response else 'None'}")
-            return False
-    def get_random_id(self):
-        return int
-    
-    
-if __name__ == "__main__":
-    api = users("https://petstore.swagger.io/v2")
-    
-    headers = {
-        "Content-Type": "application/json",
-        "accept": "application/json"
-    }
+    username = create_user["username"]
 
-    body_post = {
-        "id": 1,
-        "username": "facia123",
-        "firstName": "Facia",
-        "lastName": "Puspa",
-        "email": "facia@mail.com",
-        "password": "password123",
-        "phone": "+8251716666",
-        "userStatus": 0
-        }
-   
-    response = api.test_post_request("/user", headers, body_post)
-    if response is None:
-        print("No response received")
-    else:
-        if response.status_code == 200:
-            try:
-                result = response.json()
-            except Exception:
-                print("Invalid JSON response")
-                result = response.text
-                code = result.get("code")
-                message = result.get("message")
-                
-        else:
-            print(f"Status Code: {response.status_code}")
-            print(f"Response Body: {response.text}")
-            try:
-                print(response.json())
-            except:
-                print(response.text)
-        print(f"Status Code: {status_code}")
+    print("\nSTEP 1: CREATE USER")
+
+    create_response = api_client.post(
+        "/user",
+        create_user
+    )
+
+    print("Status Code:", create_response.status_code)
+    print("Response:", create_response.text)
+
+    assert create_response.status_code == 200
+
+    create_result = create_response.json()
+
+    assert create_result["code"] == 200
+
+    print("\nSTEP 2: GET USER")
+
+    get_response = api_client.get(
+        f"/user/{username}"
+    )
+
+    print("Status Code:", get_response.status_code)
+    print("Response:", get_response.text)
+
+    assert get_response.status_code == 200
+
+    get_result = get_response.json()
+
+    assert get_result["username"] == username
+    assert get_result["firstName"] == create_user["firstName"]
+    assert get_result["lastName"] == create_user["lastName"]
+    assert get_result["email"] == create_user["email"]
+
+    print("\nSTEP 3: UPDATE USER")
+
+    update_response = api_client.put(
+        f"/user/{username}",
+        update_user
+    )
+
+    print("Status Code:", update_response.status_code)
+    print("Response:", update_response.text)
+
+    assert update_response.status_code == 200
+
+    update_result = update_response.json()
+
+    assert update_result["code"] == 200
+
+    print("\nSTEP 4: VERIFY UPDATED USER")
+
+    verify_response = api_client.get(
+        f"/user/{username}"
+    )
+
+    print("Status Code:", verify_response.status_code)
+    print("Response:", verify_response.text)
+
+    assert verify_response.status_code == 200
+
+    verify_result = verify_response.json()
+
+    assert verify_result["username"] == username
+    assert verify_result["firstName"] == update_user["firstName"]
+    assert verify_result["lastName"] == update_user["lastName"]
+    assert verify_result["email"] == update_user["email"]
+    assert verify_result["phone"] == update_user["phone"]
+
+    print("\nALL USER API TESTS PASSED!")

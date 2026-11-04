@@ -1,4 +1,3 @@
-
 CREATE_USER = {
     "id": 1001,
     "username": "automation_user",
