@@ -140,3 +140,56 @@ def test_user_crud_sequential(api_client, user_data):
         expected_result="HTTP 200 and updated user data matches"
     )
 
+def assert_create_response(response):
+
+    assert response.status_code == 200, (
+        f"Expected HTTP 200, got {response.status_code}"
+    )
+
+    result = response.json()
+
+    assert result["code"] == 200, (
+        f"Expected response code 200, got {result}"
+    )
+
+
+def assert_update_response(response):
+
+    assert response.status_code == 200, (
+        f"Expected HTTP 200, got {response.status_code}"
+    )
+
+    result = response.json()
+
+    assert result["code"] == 200, (
+        f"Expected response code 200, got {result}"
+    )
+
+
+def assert_get_response(response, expected_user):
+
+    assert response.status_code == 200, (
+        f"Expected HTTP 200, got {response.status_code}"
+    )
+
+    result = response.json()
+
+    fields = [
+        "username",
+        "firstName",
+        "lastName",
+        "email",
+        "phone"
+    ]
+
+    for field in fields:
+
+        assert result.get(field) == expected_user[field], (
+            f"{field} mismatch. "
+            f"Expected: {expected_user[field]}, "
+            f"Actual: {result.get(field)}"
+        )
+
+
+def assert_verify_response(response, expected_user):
+    assert_get_response(response, expected_user)
