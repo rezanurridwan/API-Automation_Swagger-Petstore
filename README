@@ -1,1 +1,10 @@
-pip install requests pytest
+Petstore API Automation Testing
+A Python-based API Automation Testing Framework using Pytest and Requests to validate REST API endpoints from Swagger Petstore.
+
+This project demonstrates Positive and Negative API Testing, reusable API clients, test data management, assertions, and automated HTML test reporting.
+
+Tech Stack
+Python
+Pytest
+Requests
+HTML & CSS (Custom Test Report)
