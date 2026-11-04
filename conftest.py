@@ -4,8 +4,8 @@ import uuid
 
 import pytest
 
-from Utils.api_client import APIClient
-from Data.user_data import CREATE_USER, UPDATE_USER
+from utils.api_client import APIClient
+from data.user_data import CREATE_USER, UPDATE_USER
 
 
 @pytest.fixture

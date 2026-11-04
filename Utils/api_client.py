@@ -1,6 +1,6 @@
 import requests
 
-from Config.config import BASE_URL, HEADERS, TIMEOUT
+from config.config import BASE_URL, HEADERS, TIMEOUT
 
 
 class APIClient:
