@@ -1,3 +1,64 @@
+from utils.report_generator import add_test_result
+
+def execute_step(
+    test_case,
+    category,
+    api_request,
+    validator,
+    expected_result
+):
+    """
+    Execute API request, validate response,
+    and save test result.
+    """
+
+    response = None
+
+    try:
+        response = api_request()
+
+        validator(response)
+
+        add_test_result(
+            test_case=test_case,
+            category=category,
+            status="PASS",
+            status_code=response.status_code,
+            message="API validation successful",
+            data=expected_result
+        )
+
+        print(f"\n{test_case}: PASS")
+
+        return response
+
+    except Exception as error:
+
+        status_code = (
+            response.status_code
+            if response is not None
+            else "N/A"
+        )
+
+        response_data = (
+            response.text
+            if response is not None
+            else "No response received"
+        )
+
+        add_test_result(
+            test_case=test_case,
+            category=category,
+            status="FAIL",
+            status_code=status_code,
+            message=f"{str(error)} | Response: {response_data}",
+            data=expected_result
+        )
+
+        print(f"\n{test_case}: FAIL")
+
+        raise
+
 def test_user_crud_sequential(api_client, user_data):
 
     create_user = user_data["create"]
