@@ -4,9 +4,20 @@ import uuid
 
 import pytest
 
+from utils import report_generator
 from utils.api_client import APIClient
 from data.user_data import CREATE_USER, UPDATE_USER
 
+
+def pytest_sessionstart(session):
+    """Reset test results before execution"""
+    report_generator.test_results.clear()
+
+
+def pytest_sessionfinish(session, exitstatus):
+    """Generate HTML report after all tests finish"""
+
+    report_generator.generate_html_report()
 
 @pytest.fixture
 def api_client():
@@ -32,3 +43,4 @@ def user_data():
         "create": create_data,
         "update": update_data
     }
+

@@ -3,9 +3,7 @@ from datetime import datetime
 from pathlib import Path
 from html import escape
 
-
 test_results = []
-
 
 def add_test_result(
     test_case,
