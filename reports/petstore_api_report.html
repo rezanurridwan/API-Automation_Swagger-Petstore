@@ -106,34 +106,34 @@
             <h1>API AUTOMATION Test Report</h1>
 
             <p class="timestamp">
-                Generated: 2026-11-04 22:37:34
+                Generated: 2026-11-04 22:56:38
             </p>
 
             <div class="summary">
 
                 <div class="summary-item total">
                     <h3>Total Tests</h3>
-                    <p style="font-size: 24px;">2</p>
+                    <p style="font-size: 24px;">5</p>
                 </div>
 
                 <div class="summary-item passed">
                     <h3>Passed</h3>
-                    <p style="font-size: 24px;">1</p>
+                    <p style="font-size: 24px;">5</p>
                 </div>
 
                 <div class="summary-item failed">
                     <h3>Failed</h3>
-                    <p style="font-size: 24px;">1</p>
+                    <p style="font-size: 24px;">0</p>
                 </div>
 
                 <div class="summary-item positive">
                     <h3>Positive</h3>
-                    <p style="font-size: 24px;">2</p>
+                    <p style="font-size: 24px;">4</p>
                 </div>
 
                 <div class="summary-item negative">
                     <h3>Negative</h3>
-                    <p style="font-size: 24px;">0</p>
+                    <p style="font-size: 24px;">1</p>
                 </div>
 
             </div>
@@ -161,23 +161,63 @@
                 <td>200</td>
                 <td><pre>API validation successful</pre></td>
                 <td><pre>HTTP 200 and response code 200</pre></td>
-                <td>2026-11-04 22:37:33</td>
+                <td>2026-11-04 22:56:32</td>
             </tr>
         
             <tr>
-                <td>TC02 - Get User</td>
+                <td>TC02 - Get Valid User</td>
                 <td>POSITIVE</td>
                 <td>
-                    <span class="fail">
-                        FAIL
+                    <span class="pass">
+                        PASS
+                    </span>
+                </td>
+                <td>200</td>
+                <td><pre>API validation successful</pre></td>
+                <td><pre>HTTP 200 and user data matches</pre></td>
+                <td>2026-11-04 22:56:33</td>
+            </tr>
+        
+            <tr>
+                <td>TC03 - Get Invalid User</td>
+                <td>NEGATIVE</td>
+                <td>
+                    <span class="pass">
+                        PASS
                     </span>
                 </td>
                 <td>404</td>
-                <td><pre>Expected HTTP 200, got 404
-assert 404 == 200
- +  where 404 = &lt;Response [404]&gt;.status_code | Response: {&quot;code&quot;:1,&quot;type&quot;:&quot;error&quot;,&quot;message&quot;:&quot;User not found&quot;}</pre></td>
-                <td><pre>HTTP 200 and created user data matches</pre></td>
-                <td>2026-11-04 22:37:34</td>
+                <td><pre>API validation successful</pre></td>
+                <td><pre>HTTP 404 - User not found</pre></td>
+                <td>2026-11-04 22:56:35</td>
+            </tr>
+        
+            <tr>
+                <td>TC04 - Update User</td>
+                <td>POSITIVE</td>
+                <td>
+                    <span class="pass">
+                        PASS
+                    </span>
+                </td>
+                <td>200</td>
+                <td><pre>API validation successful</pre></td>
+                <td><pre>HTTP 200 and response code 200</pre></td>
+                <td>2026-11-04 22:56:36</td>
+            </tr>
+        
+            <tr>
+                <td>TC05 - Verify Updated User</td>
+                <td>POSITIVE</td>
+                <td>
+                    <span class="pass">
+                        PASS
+                    </span>
+                </td>
+                <td>200</td>
+                <td><pre>API validation successful</pre></td>
+                <td><pre>HTTP 200 and updated user data matches</pre></td>
+                <td>2026-11-04 22:56:38</td>
             </tr>
         
             </table>
