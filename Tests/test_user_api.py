@@ -68,43 +68,50 @@ def test_user_crud_sequential(api_client, user_data):
 
     print("\nSTEP 1: CREATE USER")
 
-    create_response = api_client.post(
-        "/user",
-        create_user
+    create_response = execute_step(
+        test_case="TC01 - Create User",
+        category="POSITIVE",
+
+        api_request=lambda: api_client.post(
+            "/user",
+            create_user
+        ),
+
+        validator=lambda response: (
+            assert_create_response(response)
+        ),
+
+        expected_result="HTTP 200 and response code 200"
     )
 
-    print("Status Code:", create_response.status_code)
-    print("Response:", create_response.text)
+    get_response = execute_step(
+        test_case="TC02 - Get User",
+        category="POSITIVE",
 
-    assert create_response.status_code == 200
+        api_request=lambda: api_client.get(
+            f"/user/{username}"
+        ),
 
-    create_result = create_response.json()
+        validator=lambda response: (
+            assert_get_response(response, create_user)
+        ),
 
-    assert create_result["code"] == 200
-
-    print("\nSTEP 2: GET USER")
-
-    get_response = api_client.get(
-        f"/user/{username}"
+        expected_result="HTTP 200 and created user data matches"
     )
+    update_response = execute_step(
+        test_case="TC03 - Update User",
+        category="POSITIVE",
 
-    print("Status Code:", get_response.status_code)
-    print("Response:", get_response.text)
+        api_request=lambda: api_client.put(
+            f"/user/{username}",
+            update_user
+        ),
 
-    assert get_response.status_code == 200
+        validator=lambda response: (
+            assert_update_response(response)
+        ),
 
-    get_result = get_response.json()
-
-    assert get_result["username"] == username
-    assert get_result["firstName"] == create_user["firstName"]
-    assert get_result["lastName"] == create_user["lastName"]
-    assert get_result["email"] == create_user["email"]
-
-    print("\nSTEP 3: UPDATE USER")
-
-    update_response = api_client.put(
-        f"/user/{username}",
-        update_user
+        expected_result="HTTP 200 and updated user data matches"
     )
 
     print("Status Code:", update_response.status_code)
@@ -118,21 +125,18 @@ def test_user_crud_sequential(api_client, user_data):
 
     print("\nSTEP 4: VERIFY UPDATED USER")
 
-    verify_response = api_client.get(
-        f"/user/{username}"
+    verify_response = execute_step(
+        test_case="TC04 - Verify Updated User",
+        category="POSITIVE",
+
+        api_request=lambda: api_client.get(
+            f"/user/{username}"
+        ),
+
+        validator=lambda response: (
+            assert_verify_response(response, update_user)
+        ),
+
+        expected_result="HTTP 200 and updated user data matches"
     )
 
-    print("Status Code:", verify_response.status_code)
-    print("Response:", verify_response.text)
-
-    assert verify_response.status_code == 200
-
-    verify_result = verify_response.json()
-
-    assert verify_result["username"] == username
-    assert verify_result["firstName"] == update_user["firstName"]
-    assert verify_result["lastName"] == update_user["lastName"]
-    assert verify_result["email"] == update_user["email"]
-    assert verify_result["phone"] == update_user["phone"]
-
-    print("\nALL USER API TESTS PASSED!")
