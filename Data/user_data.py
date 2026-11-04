@@ -1,9 +1,9 @@
 CREATE_USER = {
     "id": 1001,
-    "username": "automation_user",
-    "firstName": "Automation",
-    "lastName": "Tester",
-    "email": "automation@test.com",
+    "username": "muhammadreza28",
+    "firstName": "muhammad",
+    "lastName": "reza",
+    "email": "muhrez@test.com",
     "password": "Test12345",
     "phone": "08123456789",
     "userStatus": 1
@@ -11,9 +11,9 @@ CREATE_USER = {
 
 UPDATE_USER = {
     "id": 1001,
-    "username": "automation_user",
-    "firstName": "Updated",
-    "lastName": "QA Engineer",
+    "username": "kurniawan_santana",
+    "firstName": "Kurniawan",
+    "lastName": "Santana",
     "email": "updated@test.com",
     "password": "Updated12345",
     "phone": "08987654321",
