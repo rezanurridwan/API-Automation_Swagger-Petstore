@@ -4,7 +4,67 @@ A Python-based API Automation Testing Framework using Pytest and Requests to val
 This project demonstrates Positive and Negative API Testing, reusable API clients, test data management, assertions, and automated HTML test reporting.
 
 Tech Stack
-Python
-Pytest
-Requests
-HTML & CSS (Custom Test Report)
+1. Python
+2. Pytest
+3. Requests
+4. HTML & CSS (Custom Test Report)
+
+API-Automation-Swagger-Petstore/
+│
+├── config/
+│   └── config.py
+│
+├── data/
+│   └── user_data.py
+│
+├── tests/
+│   ├── __init__.py
+│   └── test_user_api.py
+│
+├── utils/
+│   ├── __init__.py
+│   ├── api_client.py
+│   └── report_generator.py
+│
+├── reports/
+│   └── petstore_api_report.html
+│
+├── conftest.py
+├── pytest.ini
+├── requirements.txt
+└── README.md
+
+Prerequisites
+Before running this project, make sure you have installed:
+    1. Python 3.9 or higher
+    2. pip (Python package manager)
+    3. Git
+    4. Code editor (VS Code recommended)
+
+Installation & Setup
+    1. Clone the repository
+    2. Create a virtual environment
+        * macOS / Linux >> python3 -m venv venv, source venv/bin/activate
+        * Windows >> python -m venv venv, venv\Scripts\activate
+
+Install dependencies
+    1. pip install -r requirements.txt
+
+Verify installation
+    1. python --version
+    2. pytest --version
+
+Running the Tests
+    1. Run all test cases >> python -m pytest -v -s
+    2. Run a specific test file >> python -m pytest tests/test_user_api.py -v -s
+    3. Run a specific test case >> python -m pytest tests/test_user_api.py::test_get_user_data_valid -v -s
+
+HTML Test Report
+This framework includes a custom HTML report generator.
+The report is generated automatically after the Pytest execution finishes.
+
+Report location >> reports/petstore_api_report.html
+
+Open HTML Report
+macOS >> open reports/petstore_api_report.html
+Windows >> start reports/petstore_api_report.html
